@@ -16,8 +16,14 @@
 	}
 
 	Controller.prototype.initGame = function(){
+		var self = this;
+		this.model.startGame(null);
 		
 	};
+
+
+
+
 
 
 

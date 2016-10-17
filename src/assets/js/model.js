@@ -11,7 +11,17 @@
 		this.simonSequence = [];
 		this.simonCount = 0;
 		this.strictMode = false;
+		this.playerCount = 0;
 	}
+	// creates a new sequence and resets model variables
+	Model.prototype.startGame = function(options){
+		this.simonSequence = [];
+		this.simonCount = 0;
+		this.playerCount = 0;
+				
+	};
+
+
 
 	
 

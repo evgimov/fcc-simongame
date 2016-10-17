@@ -17,7 +17,7 @@
 		simon.controller.initGame();
 	}
 
-	$on(window, 'load', initGame)
+	$on(window, 'load', initGame);
 })();
 
 
