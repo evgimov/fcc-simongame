@@ -14,7 +14,7 @@
     ],
     "vendorjs": [
       "bower_components/jquery/dist/jquery.min.js",
-      "bower_components/bootstrap-css/js/bootstrap.min.js"
+      "bower_components/bootstrap/dist/js/bootstrap.min.js"
     ],
     "vendorfonts": [
       "bower_components/bootstrap-css/fonts/*",

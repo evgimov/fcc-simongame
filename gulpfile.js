@@ -12,6 +12,7 @@ var runSequence = require('run-sequence');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var series = require('stream-series');
 
 // options for browserSync
 var browserSyncConfig = {
@@ -107,7 +108,12 @@ gulp.task('font', function() {
 
 // concatinates and minifies source js files and places them in build folder
 gulp.task('js', function() {
-  return gulp.src('src/assets/js/*')
+  return series(
+    gulp.src('src/assets/js/helpers.js'),
+    gulp.src('src/assets/js/model.js'),
+    gulp.src('src/assets/js/view.js'),
+    gulp.src('src/assets/js/controller.js'),
+    gulp.src('src/assets/js/app.js'))
     .pipe(sourcemaps.init())
     .pipe(newer('build/assets/js/*'))
     .pipe(concat('main.min.js'))

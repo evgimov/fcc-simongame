@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>TicTacToe</title>
+		<title>Test toDoList</title>
 		<meta charset="utf-8">
 		<meta name="description" content="">
 		<meta name="viewport" content="width-device-width, initial-scale=1">
@@ -12,69 +12,49 @@
 		<script src="assets/js/main.min.js"></script>
 	</head>
 	<body>
-		<div id="main">
-			<div class="left-notif"><span></span></div>
-			<div class="outer">
-				<div class="score-board">
-					<div class="row">
-						<div class="col-xs-3">
-						<span class="player1-name">
-						</span></br>
-							<span class="player1-victories">
-						</span>
-						</div>
-						<div class="col-xs-3 pull-left">
-						<span class="player2-name">
-						</span></br>
-							<span class="player2-victories">
-						</span>
-						</div>
-						<div class="col-xs-6 pull-left">
-							<input class="btn btn-default restart" type="button" value="Restart game">
-						</div>
-					</div>
-				</div>
-				<div class="inner">
-					<div class="row">
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-					</div>
-				</div>
-				<div class="info"></div>
-				<div class="select-players" style="display: none;">
-					<h2>How do you want to play?</h2>
-					<input class="btn btn-default" type="button" value="One player">
-					<input class="btn btn-default" type="button" value="Two players">
-				</div>
-				<div class="choose-name" style="display: none;">
+		<div class="container">
+			<div class="row">
+				<div id="game-body" class="col-xs-12 col-md-6">
 					<div class="row">
 						<div class="col-xs-12">
-							<h3>Player1 enter your name: </h3>
-						</div>
-						<div class="col-xs-4">
-							<input type='text' placeholder='Enter your name' id='name'/>
+							<div id="game-screen">
+								<span>--</span>
+							</div>							
 						</div>
 					</div>
-				</div>
-				<div class="choose-state" style="display: none;">
-					<h3>Would you like to be "x" or "o"?</h3>
-					<input class="btn btn-default" type="button" value="x">
-					<input class="btn btn-default" type="button" value="o">
-				</div>
-			</div>
-			<div class="right-notif"><span></span></div>
+					<div class="row">
+						<div class="col-xs-6">
+								<button id="btn-g" class="btn btn-block"></button>
+						</div>
+						<div class="col-xs-6">	
+								<button id="btn-r" class="btn btn-block"></button>							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+								<button id="btn-y" class="btn btn-block"></button>
+						</div>
+						<div class="col-xs-6">
+								<button id="btn-b" class="btn btn-block"></button>
+						</div>		
+					</div>
+		
+					<div class="row">
+						<div class="col-xs-6">
+							<button id="strict-btn" class="btn btn-block">			Strict Mode
+								<i class="fa fa-circle strict-indicator" aria-hidden="true"></i>
+							</button>
+						</div>
+						<div class="col-xs-6">
+							<button id="start-btn" class="btn btn-block"><i class="fa fa-play-circle-o" aria-hidden="true"></i></button>
+						</div>							
+					</div>
+				</div>	
+			</div>		
 		</div>
-		</div>
+		<audio id="audio-r" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" type="audio/mp3">	Your browser does not support the audio element.</audio>
+		<audio id="audio-g" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" type="audio/mp3"></audio>
+		<audio id="audio-b" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" type="audio/mp3"></audio>
+		<audio id="audio-y" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" type="audio/mp3"></audio>
 	</body>
 </html>
