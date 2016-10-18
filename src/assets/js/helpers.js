@@ -16,11 +16,23 @@ window.$qs = function (selector, scope) {
 window.$qsa = function (scope,selectors) {
 	return document.querySelectorAll(selectors);
 };
-// if element has class
+// Check if element has class
 window.$hasClass = function(elem,className){
 	return (" " + elem.className + " " ).indexOf( " " + className + " " ) > -1;
 };
-
+// Add class to existing element
+window.$addClass = function(elem, className){
+	elem.classList.addClass(className);
+};
+// Remove class from existing element
+window.$removeClass = function(elem, className){
+	elem.classList.removeClass(className);
+};
+// Toggle element
+window.$toggleClass = function(elem, oldClassName,newClassName){
+	$removeClass(elem,oldClassName);
+	$addClass(elem,newClassName);
+};
 // Get random number between min and max
 window.$rand = function(min,max){
 	return Math.floor(Math.random() * max) + min;
