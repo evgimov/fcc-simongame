@@ -2,7 +2,6 @@
 	'use strict';
 	/**
 	* Creates a new Model instance 
-		
 	*/
 	function Model(){
 		this.MAXSEQUENCE = 20; 
@@ -11,7 +10,6 @@
 		this.strictMode = false;
 		this.playerCount = 0;
 		this.gameState = false;
-
 	}
 	// creates a new sequence and resets model variables
 	Model.prototype.startGame = function(options){
@@ -43,7 +41,7 @@
 	Model.prototype.setStrictMode = function(){
 		this.strictMode = !this.strictMode;
 	};
-	// gets a current value of sctrict mode
+	// gets a current value of StrictMode
 	Model.prototype.getStrictMode = function(){
 		return this.strictMode;
 	};
@@ -70,6 +68,7 @@
 		}
 	};
 
+	
 	window.app = window.app || {};
 	window.app.Model = Model;
 })(window);

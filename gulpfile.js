@@ -117,10 +117,10 @@ gulp.task('js', function() {
     .pipe(sourcemaps.init())
     .pipe(newer('build/assets/js/*'))
     .pipe(concat('main.min.js'))
-    .pipe(uglify())
-    /*.pipe(uglify().on('error', function(e){
+    //.pipe(uglify())
+    .pipe(uglify().on('error', function(e){
       console.log(e);
-     }))*/
+     }))
     .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('build/assets/js/'))
     .on('error', gutil.log);

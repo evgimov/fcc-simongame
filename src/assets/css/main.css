@@ -15,9 +15,10 @@ body {
   padding: 10px;
   border-radius: 10px; }
   #game-screen span {
-    line-height: 2.5em;
-    font-size: 3em;
-    color: #d00; }
+    line-height: 2em;
+    font-size: 5em;
+    color: #d00;
+    padding: 10px; }
 
 .row {
   padding: 10px; }
@@ -27,13 +28,13 @@ body {
   width: 100%;
   padding: 50px !important; }
 
-.strict-indicator-off, .strict-indicator-on {
+.ind-off, .ind-on {
   position: absolute;
   color: #FC0102;
   top: 5px;
   right: 25px; }
 
-.strict-indicator-on {
+.ind-on {
   color: #88FF00; }
 
 .fa-play-circle-o:before {

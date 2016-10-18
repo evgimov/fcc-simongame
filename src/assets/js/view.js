@@ -30,13 +30,40 @@
 			});
 		}
 		// toggle the strict mode button
-		View.prototype.toggleStrict = function(elem){
-			$hasClass(elem, 'ind-off') ? $toggleClass(elem, 'ind-off', 'ind-on') : $toggleClass(elem, 'ind-on', 'ind-off');				
+		View.prototype.toggleStrict = function(){
+			$hasClass($strictButton, 'ind-off') ? $toggleClass($strictButton, 'ind-off', 'ind-on') : $toggleClass($strictButton, 'ind-on', 'ind-off');				
 		};
 		// toggle the strict mode button
-		View.prototype.toggleStart = function(elem){
-			$hasClass(elem, 'fa-play-circle-o') ? $toggleClass(elem, 'fa-play-circle-o', 'fa-stop') : $toggleClass(elem, 'fa-stop', 'fa-play-circle-o');
+		View.prototype.toggleStart = function(){
+			$hasClass($startButton, 'fa-play-circle-o') ? $toggleClass($startButton, 'fa-play-circle-o', 'fa-stop') : $toggleClass($startButton, 'fa-stop', 'fa-play-circle-o');
 		};
+		// set the new screenMode
+		View.prototype.setScreenMode = function(mode){
+			$gameScreen.innerText = mode;
+		};
+		// display text animation
+		View.prototype.animateScreenMode = function(mode){
+			var that = this;
+			var count = 0;
+			var text = this.screenModes[mode];
+			var timer = setInterval(function(){
+				if (count === 6){
+					clearInterval(timer);
+				}
+				else if (count % 2 === 0){
+					that.setScreenMode(text); 
+				}else{
+					that.setScreenMode(' ');
+				}
+				count++;
+			}, 500);
+		};
+
+
+
+
+		
+
 
 
 
