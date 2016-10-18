@@ -27,11 +27,14 @@ body {
   width: 100%;
   padding: 50px !important; }
 
-.strict-indicator {
+.strict-indicator-off, .strict-indicator-on {
   position: absolute;
   color: #FC0102;
   top: 5px;
   right: 25px; }
+
+.strict-indicator-on {
+  color: #88FF00; }
 
 .fa-play-circle-o:before {
   font-size: 4em; }
