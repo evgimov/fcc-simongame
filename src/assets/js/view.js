@@ -4,7 +4,7 @@
 	function View(){
 
 		//access to all classes and ids
-		this.$appBody = $qs('#game-body');
+		this.$appBody = $id('game-body');
 		this.$gameScreen = $qs('#game-screen>span');
 		this.$strictButton = $qs('#strict-btn>i');
 		this.$startButton = $qs('#start-btn>i');
@@ -19,6 +19,30 @@
 			error: '!!',
 			finish: 'Winner'
 		};
+		// trigger the click events
+		View.prototype.setEventListener = function (callback){
+			$on(this.$appBody, 'click', function(event){
+				var t = event.target; // element triggered the click event
+				var id = t.getAttribute("id");
+				if (t && $hasClass(t,'btn')) {
+					callback(id);
+				} 
+			});
+		}
+		// toggle the strict mode button
+		View.prototype.toggleStrict = function(elem){
+			$hasClass(elem, 'ind-off') ? $toggleClass(elem, 'ind-off', 'ind-on') : $toggleClass(elem, 'ind-on', 'ind-off');				
+		};
+		// toggle the strict mode button
+		View.prototype.toggleStart = function(elem){
+			$hasClass(elem, 'fa-play-circle-o') ? $toggleClass(elem, 'fa-play-circle-o', 'fa-stop') : $toggleClass(elem, 'fa-stop', 'fa-play-circle-o');
+		};
+
+
+
+
+		
+
 
 	}
 
