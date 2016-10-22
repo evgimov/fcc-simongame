@@ -13,7 +13,7 @@
 		return (scope || document).querySelector(selector);
 	};
 	// Get all elements
-	window.$qsa = function (scope,selectors) {
+	window.$qsa = function (selectors) {
 		return document.querySelectorAll(selectors);
 	};
 	// Check if element has class

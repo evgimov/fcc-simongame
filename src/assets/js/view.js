@@ -8,8 +8,8 @@
 		this.$gameScreen = $qs('#game-screen>span');
 		this.$strictButton = $qs('#strict-btn>i');
 		this.$startButton = $qs('#start-btn>i');
-		this.$gameButtons = $qsa(document,'#btn-g','#btn-r','#btn-b','btn-y');
-		this.$onButtons = $qsa(document,'.br-green','.br-red','br-blue','br-yellow');
+		this.$gameButtons = $qsa('#btn-g,#btn-r,#btn-b,#btn-y');
+		this.$onButtons = $qsa('.br-green,.br-red,.br-blue,.br-yellow');
 		// game state
 		this.buttonClickable = false;
 		this.startTimer = null;
@@ -58,6 +58,25 @@
 				count++;
 			}, 500);
 		};
+		// get game button state
+		View.prototype.isButtonClickable = function(){
+			return this.buttonClickable;
+		};
+		// disable game buttons
+		View.prototype.disableGameButtons = function(){
+			this.buttonClickable = false;
+			for (var i = 0; i < this.$gameButtons.length; i++){
+				$gameButtons[i].disabled = true;
+			}			
+		};
+		//enable game buttons
+		View.prototype.enableGameButtons = function(){
+			this.buttonClickable = true;
+			for (var i = 0; i < this.$gameButtons.length; i++) {
+				$gameButtons[i].disabled = false;
+			}
+		};
+
 
 
 
