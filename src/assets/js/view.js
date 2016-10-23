@@ -44,13 +44,18 @@
 		View.prototype.toggleStart = function(){
 			$hasClass($startButton, 'fa-play-circle-o') ? $toggleClass($startButton, 'fa-play-circle-o', 'fa-stop') : $toggleClass($startButton, 'fa-stop', 'fa-play-circle-o');
 		};
-		// set the new screenMode
-		View.prototype.setScreenMode = function(mode){
-			$gameScreen.innerText = mode;
+		// set new screen text
+		View.prototype.setScreenText = function(text){
+			if (typeof text === 'number'){
+				if(text < 10){
+					text = '0' + text;
+				}
+			}
+			$gameScreen.innerText = text;
 		};
 		// display text animation
 		View.prototype.animateScreenMode = function(mode){
-			var that = this;
+			var self = this;
 			var count = 0;
 			var text = this.screenModes[mode];
 			var timer = setInterval(function(){
@@ -58,9 +63,9 @@
 					clearInterval(timer);
 				}
 				else if (count % 2 === 0){
-					that.setScreenMode(text); 
+					self.setScreenText(text); 
 				}else{
-					that.setScreenMode(' ');
+					self.setScreenText(' ');
 				}
 				count++;
 			}, 500);
@@ -77,7 +82,7 @@
 			}			
 		};
 		//enable game buttons
-		View.prototype.enableGameButtons = function(){
+		View.prototype.enableGameButtons 1= function(){
 			this.buttonClickable = true;
 			for (var i = 0; i < this.$gameButtons.length; i++) {
 				$gameButtons[i].disabled = false;
@@ -92,6 +97,7 @@
 		View.prototype.doButtonBrighter = function(btn){
 			btn.style.filter = 'brightness(150%)';
 		};
+
 
 
 
