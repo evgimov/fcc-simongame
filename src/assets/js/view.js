@@ -19,6 +19,13 @@
 			error: '!!',
 			finish: 'Winner'
 		};
+		//sounds
+		this.sounds = {
+			g: $id('audio-g'),
+			r: $id('audio-r'),
+			y: $id('audio-y'),
+			b: $id('audio-b')
+		};
 		// trigger the click events
 		View.prototype.setEventListener = function (callback){
 			$on(this.$appBody, 'click', function(event){
@@ -76,6 +83,17 @@
 				$gameButtons[i].disabled = false;
 			}
 		};
+		// make sounds for game buttons
+		View.prototype.playGameButton = function(btn){
+			var sound = this.sounds[btn.id.slice(-1)]; // get the last letter of id value
+			sound.play();
+		};
+		// do the button brighter
+		View.prototype.doButtonBrighter = function(btn){
+			btn.style.filter = 'brightness(150%)';
+		};
+
+
 
 
 
