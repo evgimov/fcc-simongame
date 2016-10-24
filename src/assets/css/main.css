@@ -37,7 +37,7 @@ body {
 .ind-on {
   color: #88FF00; }
 
-.fa-play-circle-o:before {
+.fa-play-circle-o:before, .fa-stop:before {
   font-size: 4em; }
 
 #start-btn {
