@@ -5,12 +5,12 @@
 	  target.addEventListener(type, callback, false);
 	}
 	// get element by id
-	window.$id = function(selector,scope){
-		return (scope || document).getElementById(selector);
+	window.$id = function(selector){
+		return document.getElementById(selector);
 	};
 	// Get element(s) by CSS selector:
-	window.$qs = function (selector, scope) {
-		return (scope || document).querySelector(selector);
+	window.$qs = function (selector) {
+		return document.querySelector(selector);
 	};
 	// Get all elements
 	window.$qsa = function (selectors) {
@@ -46,6 +46,7 @@
 			case 4: return 'b';break;
 		}
 	};
+	NodeList.prototype.forEach = Array.prototype.forEach;
 })(window);
 
 
