@@ -22,11 +22,11 @@
 	};
 	// Add class to existing element
 	window.$addClass = function(elem, className){
-		elem.classList.addClass(className);
+		elem.classList.add(className);
 	};
 	// Remove class from existing element
 	window.$removeClass = function(elem, className){
-		elem.classList.removeClass(className);
+		elem.classList.remove(className);
 	};
 	// Toggle DOM element
 	window.$toggleClass = function(elem, oldClassName,newClassName){
