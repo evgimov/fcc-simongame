@@ -15,9 +15,9 @@
 	Model.prototype.startGame = function(options){
 		this.simonSequence = [];
 		this.createSequence();
-		this.simonCount = 0;
+		this.simonCount = 1;
 		this.playerCount = 0;
-		this.gameState = true;
+		this.gameState = false;
 	};
 	// creates a new random sequence using helper functions
 	Model.prototype.createSequence = function(){
@@ -46,8 +46,8 @@
 		return this.strictMode;
 	};
 	// sets gameState value in false
-	Model.prototype.stopGame = function(){
-		this.gameState = false;
+	Model.prototype.setGameState = function(state){
+		this.gameState = !this.gameState;
 	};
 	// gets the current value of gameState
 	Model.prototype.getGameState = function(){

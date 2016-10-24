@@ -9,16 +9,40 @@
 	 * @param {object} view The view instance
 	 */
 	function Controller(model, view){
-		var self = this;
-		self.model = model;
-		self.view = view;
-		self.gameStatus = false;
+		this.model = model;
+		this.view = view;
 	}
 
 	Controller.prototype.initGame = function(){
 		var self = this;
 		this.model.startGame(null);
+		this.view._disableGameButtons();
+		this.view.setEventListener(function(id){
+			self.buttonHandler(id);
+		});
 	};
+
+	Controller.prototype.buttonHandler = function(id){
+		if (id === 'start-btn'){
+			this.startHandler();
+		}else if (id === 'strict-btn'){
+			this.strictHandler();
+		}
+	};
+
+	Controller.prototype.startHandler = function(){
+		this.model.setGameState();
+		this.view.toggleStart();
+		this.view.animateScreenMode('start');
+		this.view.setScreenText(this.model.getSimonCount());
+
+
+	};
+
+	Controller.prototype.strictHandler = function(){
+		this.view.toggleStrict();
+	};
+
 
 
 
