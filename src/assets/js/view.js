@@ -10,7 +10,7 @@
 		this.$appBody = $id('game-body');
 		this.$gameScreen = $qs('#game-screen>span');
 		this.$strictButton = $qs('#strict-btn>i');
-		this.$startButton = $qs('#start-btn>i');
+		this.$startButton = $id('start-btn');
 		this.$gameButtons = $qsa('#btn-g,#btn-r,#btn-b,#btn-y');
 		this.$onButtons = $qsa('.br-green,.br-red,.br-blue,.br-yellow');
 		// game state
@@ -46,7 +46,8 @@
 	};
 	// toggle the strict mode button
 	View.prototype.toggleStart = function(){
-		$hasClass(this.$startButton, 'fa-play-circle-o') ? $toggleClass(this.$startButton, 'fa-play-circle-o', 'fa-stop') : $toggleClass(this.$startButton, 'fa-stop', 'fa-play-circle-o');
+        this.$startButton.id === 'start-btn' ? this.$startButton.id = 'stop-btn' :  this.$startButton.id = 'start-btn';
+        $hasClass(this.$startButton.firstChild, 'fa-play-circle-o') ? $toggleClass(this.$startButton.firstChild, 'fa-play-circle-o', 'fa-stop') : $toggleClass(this.$startButton.firstChild, 'fa-stop', 'fa-play-circle-o');
 	};
 	// set new screen text
 	View.prototype.setScreenText = function(text){
@@ -86,7 +87,7 @@
 		}			
 	};
 	//enable game buttons
-	View.prototype.enableGameButtons = function(){
+	View.prototype._enableGameButtons = function(){
 		this.buttonClickable = true;
 		for (var i = 0; i < this.$gameButtons.length; i++) {
 			this.$gameButtons[i].disabled = false;

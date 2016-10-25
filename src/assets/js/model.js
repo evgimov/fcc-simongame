@@ -45,8 +45,8 @@
 	Model.prototype.getStrictMode = function(){
 		return this.strictMode;
 	};
-	// sets gameState value in false
-	Model.prototype.setGameState = function(state){
+	// sets gameState
+	Model.prototype.setGameState = function(){
 		this.gameState = !this.gameState;
 	};
 	// gets the current value of gameState
