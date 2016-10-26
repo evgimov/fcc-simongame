@@ -1,4 +1,4 @@
-// TODO: if start-btn has class fa-stop
+// TODO: wat until the animation is going and show current step
 
 (function (window){
     'use strict';
@@ -37,21 +37,24 @@
 	};
 
 	Controller.prototype.startHandler = function(){
-            this.model.setGameState();
-            this.view._enableGameButtons();
-            this.view.toggleStart();
-            this.view.animateScreenMode('start');
-            this.view.setScreenText(this.model.getSimonCount());
+        this.model.setGameState();
+        this.view._enableGameButtons();
+        this.view.toggleStart();
+        this.view.animateScreenMode('start', this.model.getSimonCount());
     };
 
 	Controller.prototype.strictHandler = function(){
         this.model.setStrictMode();
-		this.view.toggleStrict();
+        this.view.toggleStrict();
 	};
 
     Controller.prototype.stopHandler = function(){
         this.view.toggleStart();
+        this.model.setGameState();
+        this.view.setScreenText('--');
     };
+
+
 
 
 
