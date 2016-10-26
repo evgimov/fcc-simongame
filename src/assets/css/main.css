@@ -40,7 +40,7 @@ body {
 .fa-play-circle-o:before, .fa-stop:before {
   font-size: 4em; }
 
-#start-btn {
+#start-btn, #stop-btn {
   padding: 30px !important; }
 
 /*Button colors */

@@ -12,7 +12,7 @@
 		this.$strictButton = $qs('#strict-btn>i');
 		this.$startButton = $id('start-btn');
 		this.$gameButtons = $qsa('#btn-g,#btn-r,#btn-b,#btn-y');
-		this.$onButtons = $qsa('.br-green,.br-red,.br-blue,.br-yellow');
+		//this.$onButtons = $qsa('.br-green,.br-red,.br-blue,.br-yellow');
 		// game state
 		this.buttonClickable = false;
 		this.startTimer = null;
@@ -59,9 +59,12 @@
 		this.$gameScreen.innerText = text;
 	};
 	// display text animation
-	View.prototype.animateScreenMode = function(mode){
+	View.prototype.animateScreenMode = function(mode,step){
 		var self = this;
 		var count = 0;
+        setTimeout(function() {
+            self.setScreenText(step);
+        }, 3500);
 		var text = this.screenModes[mode];
 		var timer = setInterval(function(){
 			if (count === 6){
