@@ -1,4 +1,4 @@
-// TODO: wat until the animation is going and show current step
+//Todo: show the computer moves after screen animation is complete
 
 (function (window){
     'use strict';
@@ -37,10 +37,15 @@
 	};
 
 	Controller.prototype.startHandler = function(){
+        var self = this;
         this.model.setGameState();
         this.view._enableGameButtons();
         this.view.toggleStart();
-        this.view.animateScreenMode('start', this.model.getSimonCount());
+        this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
+            self.showComputerMoves();
+        });
+
+
     };
 
 	Controller.prototype.strictHandler = function(){
@@ -53,7 +58,19 @@
         this.model.setGameState();
         this.view.setScreenText('--');
     };
-
+    Controller.prototype.showComputerMoves = function(){
+        var self = this;
+        var moves = this.model.getMovesList(this.model.getSimonCount());
+        for (var i = 0; i < moves.length; i++){
+            (function(){
+                var move = moves[i];
+                setTimeout(function () {
+                    self.view.playGameButton(move);
+                    self.view.doButtonBrighter(move);
+                }, 1000 * (i + 1));
+            })();
+        }
+    };
 
 
 
