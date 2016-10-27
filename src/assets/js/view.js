@@ -59,25 +59,25 @@
 		this.$gameScreen.innerText = text;
 	};
 	// display text animation
-	View.prototype.animateScreenMode = function(mode,step){
+	View.prototype.animateScreenMode = function(mode,step, callback){
 		var self = this;
 		var count = 0;
-        setTimeout(function() {
-            self.setScreenText(step);
-        }, 3500);
+
 		var text = this.screenModes[mode];
 		var timer = setInterval(function(){
 			if (count === 6){
 				clearInterval(timer);
+                self.setScreenText(step);
+                callback();
 			}
 			else if (count % 2 === 0){
-				self.setScreenText(text); 
+				self.setScreenText(text);
 			}else{
 				self.setScreenText(' ');
 			}
 			count++;
 		}, 500);
-	};
+    };
 	// get game button state
 	View.prototype.isButtonClickable = function(){
 		return this.buttonClickable;
@@ -98,12 +98,16 @@
 	};
 	// make sounds for game buttons
 	View.prototype.playGameButton = function(btn){
-		var sound = this.sounds[btn.id.slice(-1)]; // get the last letter of id value
+		var sound = this.sounds[btn.slice(-1)]; // get the last letter of id value
 		sound.play();
 	};
 	// do the button brighter
 	View.prototype.doButtonBrighter = function(btn){
-		btn.style.filter = 'brightness(150%)';
+        $id(btn).style.filter = 'brightness(150%)';
+        setTimeout(function(){
+            $id(btn).style.filter = 'brightness(100%)';
+		}, 750);
+
 	};
 
 
