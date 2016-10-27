@@ -1,4 +1,4 @@
-//Todo: show the computer moves after screen animation is complete
+//Todo: disable button when computer moves
 
 (function (window){
     'use strict';
@@ -39,11 +39,17 @@
 	Controller.prototype.startHandler = function(){
         var self = this;
         this.model.setGameState();
-        this.view._enableGameButtons();
         this.view.toggleStart();
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
-            self.showComputerMoves();
+            self.showComputerMoves(function(){
+                setTimeout(function(){
+                    if (!self.view.buttonClickable){
+                        self.view._enableGameButtons();
+                    }
+                },2000);
+            });
         });
+
 
 
     };
@@ -58,8 +64,9 @@
         this.model.setGameState();
         this.view.setScreenText('--');
     };
-    Controller.prototype.showComputerMoves = function(){
+    Controller.prototype.showComputerMoves = function(callback){
         var self = this;
+        var count = 0;
         var moves = this.model.getMovesList(this.model.getSimonCount());
         for (var i = 0; i < moves.length; i++){
             (function(){
@@ -67,8 +74,12 @@
                 setTimeout(function () {
                     self.view.playGameButton(move);
                     self.view.doButtonBrighter(move);
+                    if (i === count){
+                        callback();
+                    }
                 }, 1000 * (i + 1));
             })();
+            count++;
         }
     };
 
