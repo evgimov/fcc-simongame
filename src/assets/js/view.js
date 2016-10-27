@@ -108,11 +108,10 @@
 	// do the button brighter
 	View.prototype.doButtonBrighter = function(btn){
         $id(btn).style.filter = 'brightness(150%)';
-        //this.timeouts.push(
-            setTimeout(function(){
-                $id(btn).style.filter = 'brightness(100%)';
-            }, 750);
-        //);
+        var tout = setTimeout(function(){
+            $id(btn).style.filter = 'brightness(100%)';
+        }, 750);
+        this.timeouts.push(tout);
 
 	};
 
@@ -120,8 +119,13 @@
         this.toggleStart();
         this.setScreenText(this.screenModes['start']);
         this._disableGameButtons();
-        clearInterval(this.startTimer);
+    };
 
+    View.prototype.clearTimers = function(){
+        for (var i = 0; i < this.timeouts.length; i++){
+            clearTimeout(this.timeouts[i]);
+        }
+        clearInterval(this.startTimer);
     };
 
 

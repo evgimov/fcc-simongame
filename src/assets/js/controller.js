@@ -1,4 +1,4 @@
-
+//todo: initialize timeouts with null values
 (function (window){
     'use strict';
 
@@ -67,7 +67,7 @@
         for (var i = 0; i < moves.length; i++){
             (function(){
                 var move = moves[i];
-                setTimeout(function () {
+                var tout = setTimeout(function () {
                     self.view.playGameButton(move);
                     self.view.doButtonBrighter(move);
                     if (i === count){
@@ -75,6 +75,7 @@
                     }
                 }, 1000 * (i + 1));
             })();
+            this.view.timeouts.push(tout);
             count++;
         }
     };
