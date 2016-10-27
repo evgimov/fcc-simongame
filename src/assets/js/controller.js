@@ -64,10 +64,11 @@
         var self = this;
         var count = 0;
         var moves = this.model.getMovesList(this.model.getSimonCount());
+        var tout = null;
         for (var i = 0; i < moves.length; i++){
             (function(){
                 var move = moves[i];
-                var tout = setTimeout(function () {
+                tout = setTimeout(function () {
                     self.view.playGameButton(move);
                     self.view.doButtonBrighter(move);
                     if (i === count){
