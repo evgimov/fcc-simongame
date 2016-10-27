@@ -1,4 +1,3 @@
-//Todo: disable button when computer moves
 
 (function (window){
     'use strict';
@@ -41,17 +40,14 @@
         this.model.setGameState();
         this.view.toggleStart();
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
-            self.showComputerMoves(function(){
+            self.showComputerMoves(function(delay){
                 setTimeout(function(){
                     if (!self.view.buttonClickable){
                         self.view._enableGameButtons();
                     }
-                },2000);
+                },delay);
             });
         });
-
-
-
     };
 
 	Controller.prototype.strictHandler = function(){
@@ -60,9 +56,9 @@
 	};
 
     Controller.prototype.stopHandler = function(){
-        this.view.toggleStart();
+        this.view.resetView();
         this.model.setGameState();
-        this.view.setScreenText('--');
+
     };
     Controller.prototype.showComputerMoves = function(callback){
         var self = this;
@@ -75,7 +71,7 @@
                     self.view.playGameButton(move);
                     self.view.doButtonBrighter(move);
                     if (i === count){
-                        callback();
+                        callback(1000 * (i + 1));
                     }
                 }, 1000 * (i + 1));
             })();
