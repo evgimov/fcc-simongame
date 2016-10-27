@@ -40,10 +40,10 @@
 	// Convert from number to char
 	window.$fromIntToChar = function(num){
 		switch(num){
-			case 1: return 'g';break;
-			case 2: return 'r';break;
-			case 3: return 'y';break;
-			case 4: return 'b';break;
+			case 1: return 'btn-g';break;
+			case 2: return 'btn-r';break;
+			case 3: return 'btn-y';break;
+			case 4: return 'btn-b';break;
 		}
 	};
 	NodeList.prototype.forEach = Array.prototype.forEach;
