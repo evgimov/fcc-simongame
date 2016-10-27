@@ -1,3 +1,5 @@
+//Todo: add resetView method
+
 (function (window){
 	'use strict';
 
@@ -16,6 +18,8 @@
 		// game state
 		this.buttonClickable = false;
 		this.startTimer = null;
+        this.timeouts = [];
+
 		//animations
 		this.screenModes = {
 			start: '--',
@@ -64,9 +68,9 @@
 		var count = 0;
 
 		var text = this.screenModes[mode];
-		var timer = setInterval(function(){
+		this.startTimer = setInterval(function(){
 			if (count === 6){
-				clearInterval(timer);
+				clearInterval(self.startTimer);
                 self.setScreenText(step);
                 callback();
 			}
@@ -104,11 +108,21 @@
 	// do the button brighter
 	View.prototype.doButtonBrighter = function(btn){
         $id(btn).style.filter = 'brightness(150%)';
-        setTimeout(function(){
-            $id(btn).style.filter = 'brightness(100%)';
-		}, 750);
+        //this.timeouts.push(
+            setTimeout(function(){
+                $id(btn).style.filter = 'brightness(100%)';
+            }, 750);
+        //);
 
 	};
+
+	View.prototype.resetView = function(){
+        this.toggleStart();
+        this.setScreenText(this.screenModes['start']);
+        this._disableGameButtons();
+        clearInterval(this.startTimer);
+
+    };
 
 
 	window.app = window.app || {};
