@@ -61,7 +61,7 @@
 	Model.prototype.checkNextMove = function(move){
 		if (this.MAXSEQUENCE === this.playerCount) {
 			return 'finish';
-		}else if(this.simonSequence[this.playerCount - 1] === move){
+		}else if(this.simonSequence[this.playerCount] === move){
 			return 'continue';
 		}else {
 			return 'error';
