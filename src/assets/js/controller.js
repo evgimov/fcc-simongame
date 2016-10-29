@@ -59,6 +59,7 @@
                     this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
                         self.model.startGame();
                         self.view.resetView();
+                        self.startHandler();
                     });
                 } else {
                     this.view.animateScreenMode(val,this.model.getSimonCount(), function(){
