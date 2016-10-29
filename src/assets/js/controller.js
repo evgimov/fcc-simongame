@@ -12,10 +12,10 @@
 		this.model = model;
 		this.view = view;
 	}
-
+    // initialize the game
 	Controller.prototype.initGame = function(){
 		var self = this;
-		this.model.startGame(null);
+		this.model.startGame();
         if (this.model.getGameState() === false){
             this.view._disableGameButtons();
         }
@@ -23,7 +23,7 @@
 			self.buttonHandler(id);
 		});
 	};
-
+    // check which button was clicked
 	Controller.prototype.buttonHandler = function(id){
 		if (id === 'start-btn'){
             this.startHandler();
@@ -36,7 +36,7 @@
             this.playerMoveHandler(id);
         }
 	};
-
+    // check player next move and display correspondent screen mode
 	Controller.prototype.playerMoveHandler = function(id){
         var self = this;
         var toutAfterPlayer = null;
@@ -76,6 +76,7 @@
                 }
                 break;
         }
+
         if (this.model.playerCount === this.model.MAXSEQUENCE){
             this.view.animateScreenMode(this.model.checkNextMove(""),this.view.screenModes['start'], function(){
                 self.view.resetView();
@@ -98,12 +99,10 @@
             this.view.timeouts.push(toutAfterPlayer);
         }
     };
-
-
+    // starts the game, animates initial screen mode, shows first computer moves
 	Controller.prototype.startHandler = function(){
         var self = this;
         var toutAfterComp = null;
-        this.model.setGameState();
         this.view.toggleStart();
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
             self.showComputerMoves(function(delay){
@@ -116,18 +115,17 @@
             });
         });
     };
-
+    // change the strictMode
 	Controller.prototype.strictHandler = function(){
         this.model.setStrictMode();
         this.view.toggleStrict();
 	};
-
+    // stop the game, reset all variables in game
     Controller.prototype.stopHandler = function(){
         this.view.resetView();
-        //this.model.setGameState();
         this.model.startGame();
-
     };
+    // show next computer moves with delay
     Controller.prototype.showComputerMoves = function(callback){
         var self = this;
         var count = 0;
@@ -148,13 +146,6 @@
             count++;
         }
     };
-
-
-
-
-
-
-
 
 
 	window.app = window.app || {};

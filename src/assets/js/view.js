@@ -12,8 +12,8 @@
 		this.$strictButton = $qs('#strict-btn>i');
 		this.$startButton = $id('start-btn');
 		this.$gameButtons = $qsa('#btn-g,#btn-r,#btn-b,#btn-y');
-		//this.$onButtons = $qsa('.br-green,.br-red,.br-blue,.br-yellow');
-		// game state
+
+		// interface
 		this.buttonClickable = false;
 		this.startTimer = null;
         this.timeouts = [];
@@ -63,7 +63,7 @@
 	// display text animation
 	View.prototype.animateScreenMode = function(mode,step, callback){
 		var self = this;
-		var count = 0;
+		var count = 0; // for count intervals
 
 		var text = this.screenModes[mode];
 		this.startTimer = setInterval(function(){
@@ -111,14 +111,14 @@
         }, 750);
         this.timeouts.push(tout);
 	};
-
+    // reset view of the game
 	View.prototype.resetView = function(){
         this.clearTimers();
         this.toggleStart();
         this.setScreenText(this.screenModes['start']);
         this._disableGameButtons();
     };
-
+    // stop all timers in the game
     View.prototype.clearTimers = function(){
         for (var i = 0; i < this.timeouts.length; i++){
             clearTimeout(this.timeouts[i]);
