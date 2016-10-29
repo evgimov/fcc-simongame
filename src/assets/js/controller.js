@@ -47,7 +47,7 @@
         var val = this.model.checkNextMove(id);
         switch (val) {
             case 'continue':
-                this.model.playerCount++;
+                this.model.increasePlayerCount();
                 break;
             case 'finish':
                 this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
@@ -66,7 +66,7 @@
                         self.view._disableGameButtons();
                         self.showComputerMoves(function (delay) {
                             toutAfterComp = setTimeout(function () {
-                                if (!self.view.buttonClickable) {
+                                if (!self.view.isButtonClickable()) {
                                     self.view._enableGameButtons();
                                 }
                             }, delay - 750);
@@ -82,13 +82,13 @@
             });
         }else if (this.model.playerCount === this.model.simonCount){
             toutAfterPlayer = setTimeout(function () {
-                self.model.simonCount++;
+                self.model.increaseSimonCount();
                 self.model.playerCount = 0;
                 self.view.setScreenText(self.model.getSimonCount());
                 self.view._disableGameButtons();
                 self.showComputerMoves(function (delay) {
                     toutAfterComp = setTimeout(function () {
-                        if (!self.view.buttonClickable) {
+                        if (!self.view.isButtonClickable()) {
                             self.view._enableGameButtons();
                         }
                     }, delay - 750);
@@ -108,7 +108,7 @@
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
             self.showComputerMoves(function(delay){
                 toutAfterComp = setTimeout(function(){
-                    if (!self.view.buttonClickable){
+                    if (!self.view.isButtonClickable()){
                         self.view._enableGameButtons();
                     }
                 },delay - 750);
