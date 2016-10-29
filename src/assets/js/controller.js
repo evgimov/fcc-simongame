@@ -55,7 +55,25 @@
                 });
                 break;
             case 'error':
-
+                if (this.model.getStrictMode() === true){
+                    this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
+                        self.model.startGame();
+                        self.view.resetView();
+                    });
+                } else {
+                    this.view.animateScreenMode(val,this.model.getSimonCount(), function(){
+                        self.model.playerCount = 0;
+                        self.view._disableGameButtons();
+                        self.showComputerMoves(function (delay) {
+                            toutAfterComp = setTimeout(function () {
+                                if (!self.view.buttonClickable) {
+                                    self.view._enableGameButtons();
+                                }
+                            }, delay - 750);
+                            self.view.timeouts.push(toutAfterComp);
+                        });
+                    });
+                }
                 break;
         }
         if (this.model.playerCount === this.model.MAXSEQUENCE){
@@ -106,7 +124,8 @@
 
     Controller.prototype.stopHandler = function(){
         this.view.resetView();
-        this.model.setGameState();
+        //this.model.setGameState();
+        this.model.startGame();
 
     };
     Controller.prototype.showComputerMoves = function(callback){
