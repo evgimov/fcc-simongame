@@ -4,7 +4,7 @@
 	* Creates a new Model instance 
 	*/
 	function Model(){
-		this.MAXSEQUENCE = 20; 
+		this.MAXSEQUENCE = 20;
 		this.simonSequence = [];
 		this.simonCount = 0;
 		this.strictMode = false;
@@ -59,7 +59,7 @@
 	};
 	// checks the current step in game
 	Model.prototype.checkNextMove = function(move){
-		if (this.MAXSEQUENCE === this.playerCount) {
+		if (move === "") {
 			return 'finish';
 		}else if(this.simonSequence[this.playerCount] === move){
 			return 'continue';

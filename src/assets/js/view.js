@@ -1,5 +1,3 @@
-//Todo: add resetView method
-
 (function (window){
 	'use strict';
 
@@ -112,10 +110,10 @@
             $id(btn).style.filter = 'brightness(100%)';
         }, 750);
         this.timeouts.push(tout);
-
 	};
 
 	View.prototype.resetView = function(){
+        this.clearTimers();
         this.toggleStart();
         this.setScreenText(this.screenModes['start']);
         this._disableGameButtons();
@@ -126,6 +124,7 @@
             clearTimeout(this.timeouts[i]);
         }
         clearInterval(this.startTimer);
+        this.timeouts = [];
     };
 
 

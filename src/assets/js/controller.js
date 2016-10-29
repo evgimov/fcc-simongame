@@ -1,5 +1,3 @@
-// TODO: check if
-
 (function (window){
     'use strict';
 
@@ -41,10 +39,8 @@
 
 	Controller.prototype.playerMoveHandler = function(id){
         var self = this;
-        var tout = null;
-        console.log("Button id:" + id);
-        console.log("Player count:" + this.model.playerCount);
-        console.log("Simon count:" + this.model.simonCount);
+        var toutAfterPlayer = null;
+        var toutAfterComp = null;
 
         this.view.playGameButton(id);
         this.view.doButtonBrighter(id);
@@ -52,49 +48,53 @@
         switch (val) {
             case 'continue':
                 this.model.playerCount++;
-                console.log("Player:" + this.model.playerCount);
                 break;
             case 'finish':
-
+                this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
+                   self.view.resetView();
+                });
                 break;
             case 'error':
 
                 break;
         }
-
-        if (this.model.playerCount === this.model.simonCount){
-            tout = setTimeout(function () {
+        if (this.model.playerCount === this.model.MAXSEQUENCE){
+            this.view.animateScreenMode(this.model.checkNextMove(""),this.view.screenModes['start'], function(){
+                self.view.resetView();
+            });
+        }else if (this.model.playerCount === this.model.simonCount){
+            toutAfterPlayer = setTimeout(function () {
                 self.model.simonCount++;
                 self.model.playerCount = 0;
-                console.log("Simon:" + self.model.simonCount);
                 self.view.setScreenText(self.model.getSimonCount());
                 self.view._disableGameButtons();
                 self.showComputerMoves(function (delay) {
-                    setTimeout(function () {
+                    toutAfterComp = setTimeout(function () {
                         if (!self.view.buttonClickable) {
                             self.view._enableGameButtons();
                         }
-                        else {
-
-                        }
-                    }, delay);
+                    }, delay - 750);
+                    self.view.timeouts.push(toutAfterComp);
                 });
             },500);
-            this.view.timeouts.push(tout);
+            this.view.timeouts.push(toutAfterPlayer);
         }
     };
 
+
 	Controller.prototype.startHandler = function(){
         var self = this;
+        var toutAfterComp = null;
         this.model.setGameState();
         this.view.toggleStart();
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
             self.showComputerMoves(function(delay){
-                setTimeout(function(){
+                toutAfterComp = setTimeout(function(){
                     if (!self.view.buttonClickable){
                         self.view._enableGameButtons();
                     }
                 },delay - 750);
+                self.view.timeouts.push(toutAfterComp);
             });
         });
     };
@@ -113,11 +113,11 @@
         var self = this;
         var count = 0;
         var moves = this.model.getMovesList(this.model.getSimonCount());
-        var tout = null;
+        var toutBtn = null;
         for (var i = 0; i < moves.length; i++){
             (function(){
                 var move = moves[i];
-                tout = setTimeout(function () {
+                toutBtn = setTimeout(function () {
                     self.view.playGameButton(move);
                     self.view.doButtonBrighter(move);
                     if (i === count){
@@ -125,7 +125,7 @@
                     }
                 }, 1000 * (i + 1));
             })();
-            this.view.timeouts.push(tout);
+            this.view.timeouts.push(toutBtn);
             count++;
         }
     };
