@@ -11,7 +11,7 @@
 		this.playerCount = 0;
 	}
 	// creates a new sequence and resets model variables
-	Model.prototype.startGame = function(){
+	Model.prototype.initGame = function(){
 		this.simonSequence = [];
 		this.createSequence();
 		this.simonCount = 1;
