@@ -13,9 +13,9 @@
 		this.view = view;
 	}
     // initialize the game
-	Controller.prototype.initGame = function(){
+	Controller.prototype.startGame = function(){
 		var self = this;
-		this.model.startGame();
+		this.model.initGame();
         if (this.model.getGameState() === false){
             this.view._disableGameButtons();
         }
@@ -36,14 +36,14 @@
             this.playerMoveHandler(id);
         }
 	};
-    // check player next move and display correspondent screen mode
+    // activates clicked button, checks player's next move and displays correspondent screen mode
 	Controller.prototype.playerMoveHandler = function(id){
         var self = this;
-        var toutAfterPlayer = null;
-        var toutAfterComp = null;
+        var toutAfterPlayer = null; // timer to set delay after player move
 
         this.view.playGameButton(id);
         this.view.doButtonBrighter(id);
+
         var val = this.model.checkNextMove(id);
         switch (val) {
             case 'continue':
@@ -51,13 +51,14 @@
                 break;
             case 'finish':
                 this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
-                   self.view.resetView();
+                    self.view.resetView();
+                    self.model.initGame();
                 });
                 break;
             case 'error':
                 if (this.model.getStrictMode() === true){
                     this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
-                        self.model.startGame();
+                        self.model.initGame();
                         self.view.resetView();
                         self.startHandler();
                     });
@@ -65,14 +66,7 @@
                     this.view.animateScreenMode(val,this.model.getSimonCount(), function(){
                         self.model.playerCount = 0;
                         self.view._disableGameButtons();
-                        self.showComputerMoves(function (delay) {
-                            toutAfterComp = setTimeout(function () {
-                                if (!self.view.isButtonClickable()) {
-                                    self.view._enableGameButtons();
-                                }
-                            }, delay - 750);
-                            self.view.timeouts.push(toutAfterComp);
-                        });
+                        self.setDelayAfterComp();
                     });
                 }
                 break;
@@ -88,14 +82,7 @@
                 self.model.playerCount = 0;
                 self.view.setScreenText(self.model.getSimonCount());
                 self.view._disableGameButtons();
-                self.showComputerMoves(function (delay) {
-                    toutAfterComp = setTimeout(function () {
-                        if (!self.view.isButtonClickable()) {
-                            self.view._enableGameButtons();
-                        }
-                    }, delay - 750);
-                    self.view.timeouts.push(toutAfterComp);
-                });
+                self.setDelayAfterComp();
             },500);
             this.view.timeouts.push(toutAfterPlayer);
         }
@@ -103,17 +90,10 @@
     // starts the game, animates initial screen mode, shows first computer moves
 	Controller.prototype.startHandler = function(){
         var self = this;
-        var toutAfterComp = null;
+
         this.view.toggleStart();
         this.view.animateScreenMode('start', this.model.getSimonCount(), function(){
-            self.showComputerMoves(function(delay){
-                toutAfterComp = setTimeout(function(){
-                    if (!self.view.isButtonClickable()){
-                        self.view._enableGameButtons();
-                    }
-                },delay - 750);
-                self.view.timeouts.push(toutAfterComp);
-            });
+            self.setDelayAfterComp();
         });
     };
     // change the strictMode
@@ -124,14 +104,15 @@
     // stop the game, reset all variables in game
     Controller.prototype.stopHandler = function(){
         this.view.resetView();
-        this.model.startGame();
+        this.model.initGame();
     };
     // show next computer moves with delay
     Controller.prototype.showComputerMoves = function(callback){
         var self = this;
         var count = 0;
+        var toutBtn = null; // timer for delay between activated buttons
+
         var moves = this.model.getMovesList(this.model.getSimonCount());
-        var toutBtn = null;
         for (var i = 0; i < moves.length; i++){
             (function(){
                 var move = moves[i];
@@ -146,6 +127,19 @@
             this.view.timeouts.push(toutBtn);
             count++;
         }
+    };
+
+    Controller.prototype.setDelayAfterComp = function(){
+        var self = this;
+        var toutAfterComp = null; // timer to set delay after comp moves
+        this.showComputerMoves(function (delay) {
+            toutAfterComp = setTimeout(function () {
+                if (!self.view.isButtonClickable()) {
+                    self.view._enableGameButtons();
+                }
+            }, delay - 750);
+            self.view.timeouts.push(toutAfterComp);
+        });
     };
 
 
