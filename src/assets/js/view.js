@@ -16,6 +16,7 @@
 		// interface
 		this.buttonClickable = false;
 		this.startTimer = null;
+        this.waitingTimer = 0;
         this.timeouts = [];
 
 		//animations
@@ -124,6 +125,7 @@
             clearTimeout(this.timeouts[i]);
         }
         clearInterval(this.startTimer);
+        clearTimeout(this.isActiveTimer);
         this.timeouts = [];
     };
 
