@@ -23,6 +23,10 @@
 			self.buttonHandler(id);
 		});
 	};
+	Controller.prototype.resetGame = function(){
+        self.view.resetView();
+        self.model.initGame();
+    };
     // check which button was clicked
 	Controller.prototype.buttonHandler = function(id){
 		if (id === 'start-btn'){
@@ -51,20 +55,18 @@
                 break;
             case 'finish':
                 this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
-                    self.view.resetView();
-                    self.model.initGame();
+                    self.resetGame();
                 });
                 break;
             case 'error':
                 if (this.model.getStrictMode() === true){
                     this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
-                        self.model.initGame();
-                        self.view.resetView();
+                        self.resetGame();
                         self.startHandler();
                     });
                 } else {
                     this.view.animateScreenMode(val,this.model.getSimonCount(), function(){
-                        self.model.playerCount = 0;
+                        self.model.resetPlayerCount();
                         self.view._disableGameButtons();
                         self.setDelayAfterComp();
                     });
@@ -74,12 +76,12 @@
 
         if (this.model.playerCount === this.model.MAXSEQUENCE){
             this.view.animateScreenMode(this.model.checkNextMove(""),this.view.screenModes['start'], function(){
-                self.view.resetView();
+                self.resetGame();
             });
         }else if (this.model.playerCount === this.model.simonCount){
             toutAfterPlayer = setTimeout(function () {
                 self.model.increaseSimonCount();
-                self.model.playerCount = 0;
+                self.model.resetPlayerCount();
                 self.view.setScreenText(self.model.getSimonCount());
                 self.view._disableGameButtons();
                 self.setDelayAfterComp();
@@ -103,8 +105,7 @@
 	};
     // stop the game, reset all variables in game
     Controller.prototype.stopHandler = function(){
-        this.view.resetView();
-        this.model.initGame();
+        self.resetGame();
     };
     // show next computer moves with delay
     Controller.prototype.showComputerMoves = function(callback){
