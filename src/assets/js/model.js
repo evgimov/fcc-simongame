@@ -23,6 +23,10 @@
 			this.simonSequence.push($fromIntToChar($rand(1,4)));
 		}
 	};
+	// resets the playerCount
+    Model.prototype.resetPlayerCount  = function(){
+        this.playerCount = 0;
+    };
 	// increases simonCount
 	Model.prototype.increaseSimonCount = function(){
 		this.simonCount++;
