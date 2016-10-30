@@ -1,6 +1,5 @@
 /*global app, $on */
 (function (){
-
 	/**
 	 * Sets up a new Simon Game.
 	 *

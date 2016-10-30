@@ -1,10 +1,6 @@
 (function (window){
 	'use strict';
 
-	var $qs = function(selector) {
-		return document.querySelector(selector);
-	};
-
 	function View(){
 		//access to all classes and ids
 		this.$appBody = $id('game-body');
@@ -125,7 +121,7 @@
             clearTimeout(this.timeouts[i]);
         }
         clearInterval(this.startTimer);
-        clearTimeout(this.isActiveTimer);
+        clearTimeout(this.waitingTimer);
         this.timeouts = [];
     };
 
