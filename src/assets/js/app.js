@@ -15,11 +15,11 @@
 	var simon = new Simon();	
 
     // entry point of game
-	function initGame(){
-		simon.controller.initGame();
+	function start(){
+		simon.controller.startGame();
 	}
-    // after DOM is loaded call the initGame function
-	$on(window, 'load', initGame);
+    // after DOM is loaded call the start function
+	$on(window, 'load', start);
 })();
 
 
