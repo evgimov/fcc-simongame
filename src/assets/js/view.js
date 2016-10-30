@@ -64,7 +64,7 @@
 	View.prototype.animateScreenMode = function(mode,step, callback){
 		var self = this;
 		var count = 0; // for count intervals
-
+        this._disableGameButtons();
 		var text = this.screenModes[mode];
 		this.startTimer = setInterval(function(){
 			if (count === 6){

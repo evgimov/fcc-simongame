@@ -16,16 +16,16 @@
 	Controller.prototype.startGame = function(){
 		var self = this;
 		this.model.initGame();
-        if (this.model.getGameState() === false){
-            this.view._disableGameButtons();
-        }
+        this.view._disableGameButtons();
+
 		this.view.setEventListener(function(id){
 			self.buttonHandler(id);
 		});
 	};
+	//reset the game
 	Controller.prototype.resetGame = function(){
-        self.view.resetView();
-        self.model.initGame();
+        this.view.resetView();
+        this.model.initGame();
     };
     // check which button was clicked
 	Controller.prototype.buttonHandler = function(id){
@@ -60,14 +60,13 @@
                 break;
             case 'error':
                 if (this.model.getStrictMode() === true){
-                    this.view.animateScreenMode(val,this.view.screenModes['start'], function(){
+                    this.view.animateScreenMode(val,"", function(){
                         self.resetGame();
                         self.startHandler();
                     });
                 } else {
                     this.view.animateScreenMode(val,this.model.getSimonCount(), function(){
                         self.model.resetPlayerCount();
-                        self.view._disableGameButtons();
                         self.setDelayAfterComp();
                     });
                 }
@@ -105,7 +104,7 @@
 	};
     // stop the game, reset all variables in game
     Controller.prototype.stopHandler = function(){
-        self.resetGame();
+        this.resetGame();
     };
     // show next computer moves with delay
     Controller.prototype.showComputerMoves = function(callback){
@@ -133,6 +132,7 @@
     Controller.prototype.setDelayAfterComp = function(){
         var self = this;
         var toutAfterComp = null; // timer to set delay after comp moves
+
         this.showComputerMoves(function (delay) {
             toutAfterComp = setTimeout(function () {
                 if (!self.view.isButtonClickable()) {
@@ -141,6 +141,7 @@
             }, delay - 750);
             self.view.timeouts.push(toutAfterComp);
         });
+
     };
 
 
